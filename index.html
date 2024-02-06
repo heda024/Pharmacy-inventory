@@ -4,33 +4,63 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Pharmacy inventory</title>
-	<link rel="stylesheet" href="">
+	<link rel="stylesheet" href="style.css">
 </head>
 <body>
 	<div class="main-container">
 
 		<div class="input-container">
 
-			<h2>Add medication</h2>
+			<form action="" class="medication-form">
 
-			<label for="name">Medication name</label>
-			<input type="text" name="name" class="name">
+				<h2>Add medication</h2>
 
-			<label for="id">Product ID</label>
-			<input type="text" name="id" class="id">
+				<div class="input-box">
+				<label for="name">Medication name</label>
+				<input type="text" name="name" class="name">
+				</div>
 
-			<label for="manufacturer">Manufactorer</label>
-			<input type="text" name="manufactorer" class="manufactorer">
+				<div class="input-box">
+				<label for="id">Product ID</label>
+				<input type="text" name="id" class="id">
+				</div>
 
-			<label for="expiration">Expiration date</label>
-			<input type="date" name="expiration" class="expiration">
+				<div class="input-box">
+				<label for="manufacturer">Manufactorer</label>
+				<input type="text" name="manufactorer" class="manufactorer">
+				</div>
 
-			<label for="quantity">Quantity</label>
-			<input type="text" name="quantity" class="quantity">
+				<div class="input-box">
+				<label for="expiration">Expiration date</label>
+				<input type="date" name="expiration" class="expiration">
+				</div>
+
+				<div class="input-box">
+				<label for="quantity">Quantity</label>
+				<input type="text" name="quantity" class="quantity">
+				</div>
+
+			</form>
 		</div>
 
 		<div class="inventory-container">
 
+			<h1>Pharmacy inventory</h1>
+
+			<div class="display-invetory">
+				<div class="medication-header">
+					<span>Medication name</span>
+					<span>Product ID</span>
+					<span>Manufactorer</span>
+					<span>Expiration date</span>
+					<span>Quantity</span>
+					<span></span>
+				</div>
+
+				<ul class="display-medication">
+
+				</ul>
+			</div>
 		</div>
 
 	</div>
