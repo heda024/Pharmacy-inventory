@@ -30,6 +30,20 @@ input{
 	height: 2rem;
 }
 
+.submit-button{
+	width: 6.5rem;
+	height: 1.5rem;
+	background: #6f9bf4;
+	color: #0a1936;
+	border: 2px solid #6f9bf4;
+	border-radius: 0.5rem;
+	cursor: pointer;
+}
+
+.submit-button:hover{
+	background-color: #86aaf2;
+}
+
 .inventory-container{
 	width: 100%;
 	flex-basis: 75%;
