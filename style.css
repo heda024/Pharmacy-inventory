@@ -11,12 +11,12 @@
 	background-color: #D4DEF2;
 }
 
-.input-container{
+.medication-form{
 	flex-basis: 30%;
-	background-color: #D4DEF2;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	gap: 1rem;
 	padding: 1rem;
 }
 
