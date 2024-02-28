@@ -20,19 +20,27 @@ const quantity = document.querySelector('.quantity')
 const selectElement = document.querySelector('.type')
 
 
+//Submit form
 medicationForm.addEventListener('submit', (e)=>{
 	e.preventDefault();
 	let newMedication;
 
 	if(selectElement.value === 'prescription'){
-		newMedication = new Prescription(name.value, id.value, manufactorer.value, expiration.value, expiration.value, selectElement.value)
+		newMedication = new Prescription(name.value, id.value, manufactorer.value, expiration.value, expiration.value, selectElement.value);
 	} else{
-		newMedication = new NonPrescription(name.value, id.value, manufactorer.value, expiration.value, expiration.value, selectElement.value)
+		newMedication = new NonPrescription(name.value, id.value, manufactorer.value, expiration.value, expiration.value, selectElement.value);
 	}
 	Prescription.addMedication(newMedication)
 	console.log(newMedication);
 
+	//Save to local storage
+
+	const medication = JSON.stringify(newMedication);
+	localStorage.setItem('newMedication', medication);
+
 })
+
+//Render information on screen
 
 renderPrescriptionButton.addEventListener('click', ()=>{
 	UI.activeTab = 'prescription'
