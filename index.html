@@ -38,6 +38,14 @@
 				<input type="text" name="quantity" class="quantity">
 			</div>
 
+			<div class="input-box">
+				<label for="prescription">Type:</label>
+				<select name="prescription" class="type">
+					<option value="prescription">Prescription</option>
+					<option value="non-prescription">Non-prescription</option>
+				</select>
+			</div>
+
 			<button class="submit-button">Add medication</button>
 			
 
@@ -47,19 +55,46 @@
 
 			<h1>Pharmacy inventory</h1>
 
+			<div class="select-list-button-container">
+				<button class="render-prescription-button">Display prescription medication</button>
+				<button class="render-non-prescription-button">Display non-prescription</button>
+			</div>
+
 			<div class="display-invetory">
-				<div class="medication-header">
-					<span>Medication name</span>
-					<span>Product ID</span>
-					<span>Manufactorer</span>
-					<span>Expiration date</span>
-					<span>Quantity</span>
-					<span></span>
+
+				<div class="display-prescription">
+
+					<div class="prescription-header">
+						<span>Medication name</span>
+						<span>Product ID</span>
+						<span>Manufactorer</span>
+						<span>Expiration date</span>
+						<span>Quantity</span>
+						<span>Type</span>
+						<span></span>
+					</div>
+
+					<ul class="display-prescription-list">
+
+					</ul>
 				</div>
 
-				<ul class="display-medication">
-					
-				</ul>
+				<div class="display-non-prescription">
+
+					<div class="non-prescription-header">
+						<span>Medication name</span>
+						<span>Product ID</span>
+						<span>Manufactorer</span>
+						<span>Expiration date</span>
+						<span>Quantity</span>
+						<span>Type</span>
+						<span></span>
+					</div>
+
+					<ul class="display-non-prescription-list">
+
+					</ul>
+				</div>
 			</div>
 		</div>
 
