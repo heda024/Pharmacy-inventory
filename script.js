@@ -1,3 +1,5 @@
+// import validateForm from "./formvalidation";
+
 const prescription = [];
 const nonPrescription = [];
 
@@ -19,6 +21,15 @@ const expiration = document.querySelector('.expiration')
 const quantity = document.querySelector('.quantity')
 const selectElement = document.querySelector('.type')
 
+const formError = document.querySelector('.error-message')
+
+const storedMedicationsJSON = localStorage.getItem('new medication')
+const storedMedication = JSON.parse(storedMedicationsJSON)
+
+function showStoredMedication(){
+	
+}
+
 
 //Submit form
 medicationForm.addEventListener('submit', (e)=>{
@@ -26,17 +37,22 @@ medicationForm.addEventListener('submit', (e)=>{
 	let newMedication;
 
 	if(selectElement.value === 'prescription'){
-		newMedication = new Prescription(name.value, id.value, manufactorer.value, expiration.value, expiration.value, selectElement.value);
+		newMedication = new Prescription(name.value, id.value, manufactorer.value, expiration.value, quantity.value, selectElement.value);
 	} else{
-		newMedication = new NonPrescription(name.value, id.value, manufactorer.value, expiration.value, expiration.value, selectElement.value);
+		newMedication = new NonPrescription(name.value, id.value, manufactorer.value, expiration.value, quantity.value, selectElement.value);	
 	}
+	
 	Prescription.addMedication(newMedication)
 	console.log(newMedication);
+	
 
 	//Save to local storage
 
 	const medication = JSON.stringify(newMedication);
-	localStorage.setItem('newMedication', medication);
+	function saveData(){
+	localStorage.setItem('new medication', medication);
+	}
+	saveData()
 
 })
 
