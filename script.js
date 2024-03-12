@@ -1,4 +1,4 @@
-// import validateForm from "./formvalidation";
+import validateForm from "./formvalidation.js";
 
 const prescription = [];
 const nonPrescription = [];
@@ -23,13 +23,21 @@ const selectElement = document.querySelector('.type')
 
 const formError = document.querySelector('.error-message')
 
-const storedMedicationsJSON = localStorage.getItem('new medication')
-const storedMedication = JSON.parse(storedMedicationsJSON)
+document.addEventListener('DOMContentLoaded', () => {
+    const prescriptionFromStorage = JSON.parse(localStorage.getItem('prescription'));
+    const nonPrescriptionFromStorage = JSON.parse(localStorage.getItem('nonPrescription'));
 
-function showStoredMedication(){
-	
-}
+    if (prescriptionFromStorage) {
+        prescription.push(...prescriptionFromStorage);
+    }
 
+    if (nonPrescriptionFromStorage) {
+        nonPrescription.push(...nonPrescriptionFromStorage);
+    }
+
+    UI.renderPrescription(prescription);
+    UI.renderNonPrescription(nonPrescription);
+});
 
 //Submit form
 medicationForm.addEventListener('submit', (e)=>{
@@ -44,17 +52,18 @@ medicationForm.addEventListener('submit', (e)=>{
 	
 	Prescription.addMedication(newMedication)
 	console.log(newMedication);
-	
 
-	//Save to local storage
+	// Save medications to local storage after adding new medication
 
-	const medication = JSON.stringify(newMedication);
-	function saveData(){
-	localStorage.setItem('new medication', medication);
-	}
-	saveData()
+	saveMedicationsToLocalStorage();
 
 })
+
+// Function to store madications to local storage
+function saveMedicationsToLocalStorage(){
+	localStorage.setItem('prescription', JSON.stringify(prescription));
+    localStorage.setItem('nonPrescription', JSON.stringify(nonPrescription))
+   }
 
 //Render information on screen
 
