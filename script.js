@@ -8,6 +8,7 @@ const displayNonPrescriptionContainer = document.querySelector('.display-non-pre
 const prescriptionUl = document.querySelector('.display-prescription-list')
 const nonPrescriptionUl = document.querySelector('.display-non-prescription-list')
 const submitButton = document.querySelector('.submit-button')
+const deleteButton = document.querySelector('.delete-button')
 
 const renderPrescriptionButton = document.querySelector('.render-prescription-button')
 const renderNonPrescriptionButton = document.querySelector('.render-non-prescription-button')
@@ -109,6 +110,7 @@ class Prescription {
         if(index !== -1){
             prescription.splice(index, 1);
             UI.renderPrescription(prescription); // Render the updated list
+			saveMedicationsToLocalStorage(); // Update local storage
         }
 	}
 }
@@ -125,6 +127,7 @@ class NonPrescription extends Prescription{
         if(index !== -1){
             nonPrescription.splice(index, 1);
             UI.renderNonPrescription(nonPrescription); // Render the updated list
+			saveMedicationsToLocalStorage(); // Update local storage
         }
 	}
 }
