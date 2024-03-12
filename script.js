@@ -1,5 +1,3 @@
-import validateForm from "./formvalidation.js";
-
 const prescription = [];
 const nonPrescription = [];
 
@@ -23,6 +21,8 @@ const selectElement = document.querySelector('.type')
 
 const formError = document.querySelector('.error-message')
 
+
+// Load local storage when page is refreshed
 document.addEventListener('DOMContentLoaded', () => {
     const prescriptionFromStorage = JSON.parse(localStorage.getItem('prescription'));
     const nonPrescriptionFromStorage = JSON.parse(localStorage.getItem('nonPrescription'));
@@ -42,6 +42,12 @@ document.addEventListener('DOMContentLoaded', () => {
 //Submit form
 medicationForm.addEventListener('submit', (e)=>{
 	e.preventDefault();
+
+	if (!name.value || !id.value || !manufactorer.value || !expiration.value || !quantity.value || !selectElement.value) {
+        formError.textContent = 'Please fill out all the fields ⚠️';
+        return; // Stop form submission
+    }
+
 	let newMedication;
 
 	if(selectElement.value === 'prescription'){
@@ -53,8 +59,10 @@ medicationForm.addEventListener('submit', (e)=>{
 	Prescription.addMedication(newMedication)
 	console.log(newMedication);
 
-	// Save medications to local storage after adding new medication
+	// Clear any previous error messages
+	 formError.textContent = '';
 
+	// Save medications to local storage after adding new medication
 	saveMedicationsToLocalStorage();
 
 })
@@ -96,16 +104,12 @@ class Prescription {
 			nonPrescription.push(medication)
 		}
 	}
-	static deleteMedication(id, prescriptionArray){
-		const index = prescriptionArray.findIndex(prescription => prescription.ID.toString() === id.toString());
-		if(index !== -1){
-			prescriptionArray.splice(index, 1)
-			if(UI.activeTab === 'prescription'){
-				UI.renderPrescription(prescription)
-			} else{
-				UI.renderNonPrescription(nonPrescription)
-			}
-		}
+	static deleteMedication(id){
+        const index = prescription.findIndex(prescription => prescription.ID.toString() === id.toString());
+        if(index !== -1){
+            prescription.splice(index, 1);
+            UI.renderPrescription(prescription); // Render the updated list
+        }
 	}
 }
 
@@ -116,7 +120,16 @@ class NonPrescription extends Prescription{
 		super(name, id, manufactorer, expiration, quantity, type);
 		this.ID = Date.now();
 	}
+	static deleteMedication(id){
+        const index = nonPrescription.findIndex(nonPrescription => nonPrescription.ID.toString() === id.toString());
+        if(index !== -1){
+            nonPrescription.splice(index, 1);
+            UI.renderNonPrescription(nonPrescription); // Render the updated list
+        }
+	}
 }
+	
+
 
 // Declaring the Ul class
 
@@ -199,3 +212,12 @@ class UI{
 		}
 	}
 }
+
+deleteButton.addEventListener('click', (e)=>{
+    const rowId = e.currentTarget.parentElement.parentElement.dataset.id;
+    if (UI.activeTab === 'prescription') {
+        Prescription.deleteMedication(rowId);
+    } else {
+        NonPrescription.deleteMedication(rowId);
+    }
+});
