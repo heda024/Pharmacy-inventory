@@ -14,7 +14,6 @@ const renderPrescriptionButton = document.querySelector('.render-prescription-bu
 const renderNonPrescriptionButton = document.querySelector('.render-non-prescription-button')
 
 const name = document.querySelector('.name')
-const id = document.querySelector('.id')
 const manufactorer = document.querySelector('.manufactorer')
 const expiration = document.querySelector('.expiration')
 const quantity = document.querySelector('.quantity')
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 medicationForm.addEventListener('submit', (e)=>{
 	e.preventDefault();
 
-	if (!name.value || !id.value || !manufactorer.value || !expiration.value || !quantity.value || !selectElement.value) {
+	if (!name.value || !manufactorer.value || !expiration.value || !quantity.value || !selectElement.value) {
         formError.textContent = 'Please fill out all the fields ⚠️';
         return; // Stop form submission
     }
@@ -52,9 +51,9 @@ medicationForm.addEventListener('submit', (e)=>{
 	let newMedication;
 
 	if(selectElement.value === 'prescription'){
-		newMedication = new Prescription(name.value, id.value, manufactorer.value, expiration.value, quantity.value, selectElement.value);
+		newMedication = new Prescription(name.value, manufactorer.value, expiration.value, quantity.value, selectElement.value);
 	} else{
-		newMedication = new NonPrescription(name.value, id.value, manufactorer.value, expiration.value, quantity.value, selectElement.value);	
+		newMedication = new NonPrescription(name.value, manufactorer.value, expiration.value, quantity.value, selectElement.value);	
 	}
 	
 	Prescription.addMedication(newMedication)
@@ -89,9 +88,8 @@ renderNonPrescriptionButton.addEventListener('click', ()=>{
 //Declaring the prescription class
 
 class Prescription {
-	constructor(name, id, manufactorer, expiration, quantity, type){
+	constructor(name, manufactorer, expiration, quantity, type){
 		this.name = name;
-		this.id = id;
 		this.manufactorer = manufactorer;
 		this.expiration = expiration;
 		this.quantity = quantity;
@@ -118,8 +116,8 @@ class Prescription {
 //Declaring the non prescription class
 
 class NonPrescription extends Prescription{
-	constructor(name, id, manufactorer, expiration, quantity, type){
-		super(name, id, manufactorer, expiration, quantity, type);
+	constructor(name, manufactorer, expiration, quantity, type){
+		super(name, manufactorer, expiration, quantity, type);
 		this.ID = Date.now();
 	}
 	static deleteMedication(id){
@@ -146,7 +144,6 @@ class UI{
 			prescription.forEach(prescription => {
 				const liRow = document.createElement('li');
 				const renderName = document.createElement('span');
-				const renderId = document.createElement('span');
 				const renderManufactorer = document.createElement('span');
 				const renderExpiration = document.createElement('span');
 				const renderQuantity = document.createElement('span');
@@ -155,7 +152,6 @@ class UI{
 				const deleteButton = document.createElement('button')
 
 				renderName.textContent = prescription.name;
-				renderId.textContent = prescription.id;
 				renderManufactorer.textContent = prescription.manufactorer;
 				renderExpiration.textContent = prescription.expiration;
 				renderQuantity.textContent = prescription.quantity;
@@ -166,7 +162,7 @@ class UI{
 				liRow.dataset.id = prescription.ID;
 
 				prescriptionUl.append(liRow);
-				liRow.append(renderName, renderId, renderManufactorer, renderExpiration, renderQuantity, renderType, deleteButtonContainer);
+				liRow.append(renderName, renderManufactorer, renderExpiration, renderQuantity, renderType, deleteButtonContainer);
 				deleteButtonContainer.append(deleteButton)
 
 				deleteButton.addEventListener('click', (e)=>{
@@ -208,19 +204,16 @@ class UI{
 				deleteButtonContainer.append(deleteButton)
 
 				deleteButton.addEventListener('click', (e)=>{
-					const rowId = e.currentTarget.parentElement.parentElement.dataset.id
-					NonPrescription.deleteMedication(rowId, nonPrescription)
-				})
+					const rowId = e.currentTarget.parentElement.parentElement.dataset.id;
+					if (UI.activeTab === 'prescription') {
+						Prescription.deleteMedication(rowId);
+					} else {
+						NonPrescription.deleteMedication(rowId);
+					}
+				});
 			})
 		}
 	}
 }
 
-deleteButton.addEventListener('click', (e)=>{
-    const rowId = e.currentTarget.parentElement.parentElement.dataset.id;
-    if (UI.activeTab === 'prescription') {
-        Prescription.deleteMedication(rowId);
-    } else {
-        NonPrescription.deleteMedication(rowId);
-    }
-});
+
