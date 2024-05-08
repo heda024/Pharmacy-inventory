@@ -154,3 +154,57 @@ h1{
 .non-prescription-row button:hover{
 	color: deepskyblue;
 }
+
+@media screen and (min-width: 600px) and (max-width: 1025px){
+	.main-container{
+		flex-direction: column;
+		text-align: center;
+	}
+
+	input{
+		margin-left: 10%;
+	}
+
+	select{
+		margin-left: 10%;
+	}
+	.submit-button{
+		margin-left: 43%;
+	}
+	
+}
+
+@media screen and (max-width: 599px){
+	.main-container{
+		flex-direction: column;
+		text-align: center;
+	}
+
+	input{
+		margin-left: 15%;
+	}
+
+	select{
+		margin-left: 15%;
+	}
+	.submit-button{
+		margin-left: 37%;
+	}
+
+	.prescription-header span{
+		font-size: 12px;
+	}
+	
+	.non-prescription-header span{
+		font-size: 12px;
+	}
+
+	.prescription-row span{
+		font-size: 12px;
+	}
+	
+	.non-prescription-row span{
+		font-size: 12px;
+	}
+}
+
